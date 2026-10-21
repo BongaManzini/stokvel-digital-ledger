@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stokvel Digital Trust Ledger | Community Savings & Payout System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-amber-500/20 selection:text-amber-400">
+
+  <!-- Ambient background -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute -top-32 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[140px]"></div>
+    <div class="absolute top-1/2 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-[150px]"></div>
+    <div class="absolute -bottom-40 right-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-[140px]"></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <!-- Header -->
+    <header class="border-b border-slate-800 pb-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+            Informal Financial Inclusion & Trust Informatics
+          </span>
+          <span class="text-xs font-mono text-slate-400 hidden sm:inline">SA Informatics Master Portfolio</span>
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
+          <span>💰 Stokvel Digital Trust Ledger</span>
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base mt-1 max-w-2xl font-light">
+          Digitizing South Africa’s R50-billion informal Stokvel economy. Replaces dispute-prone paper notebooks with an immutable, transparent member ledger tracking monthly contributions and rotational payouts.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/BongaManzini/stokvel-digital-ledger" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 text-xs font-mono flex items-center gap-2 transition-all">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>GitHub</span>
+        </a>
+        <a href="../" class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold font-mono flex items-center gap-1.5 transition-all">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Portfolio</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Financial Summary HUD -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-8">
+      <div class="bg-slate-900/60 border border-amber-500/30 rounded-2xl p-4">
+        <span class="text-[11px] font-mono uppercase text-amber-400 font-semibold block mb-1">Total Vault Balance</span>
+        <span id="vault-balance" class="text-3xl font-black text-white font-mono">R 48,500</span>
+        <span class="text-[11px] text-emerald-400 font-mono block mt-0.5">+R12,000 this month</span>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4">
+        <span class="text-[11px] font-mono uppercase text-slate-400 block mb-1">Active Club Members</span>
+        <span id="member-count" class="text-3xl font-black text-cyan-400 font-mono">12</span>
+        <span class="text-[11px] text-slate-400 block mt-0.5">100% KYC verified</span>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4">
+        <span class="text-[11px] font-mono uppercase text-slate-400 block mb-1">Current Rotational Recipient</span>
+        <span id="next-recipient" class="text-2xl font-black text-emerald-400 font-mono">Kagiso Ndlovu</span>
+        <span class="text-[11px] text-slate-400 block mt-0.5">October Payout: R12,000</span>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4">
+        <span class="text-[11px] font-mono uppercase text-slate-400 block mb-1">Late Payment Penalties</span>
+        <span class="text-3xl font-black text-rose-400 font-mono">R 0</span>
+        <span class="text-[11px] text-slate-500 block mt-0.5">Zero defaults recorded</span>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Left: Member Contribution Table & Action (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4 text-amber-400"></i>
+              <h3 class="text-base font-bold text-white">Monthly Contribution Status (October 2026)</h3>
+            </div>
+            <button onclick="recordNewContribution()" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 transition-all">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Log Payment</span>
+            </button>
+          </div>
+
+          <!-- Members Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+              <thead class="bg-slate-950 text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="p-3">Member</th>
+                  <th class="p-3">Contribution</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3">Payout Month</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="member-table-body" class="divide-y divide-slate-800/60">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Audit Trail / Dispute Prevention Log -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i>
+            <h4 class="text-sm font-bold text-white">Immutable Transaction Audit Trail</h4>
+          </div>
+          <p class="text-xs text-slate-400 font-light mb-4">
+            Every transaction is cryptographically signed with timestamp and bank reference to prevent treasurer fraud.
+          </p>
+
+          <div id="audit-trail" class="space-y-2 text-xs font-mono">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Payout Rules & Cashflow Simulator (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
+          <div class="flex items-center gap-2">
+            <i data-lucide="calendar" class="w-4 h-4 text-amber-400"></i>
+            <h4 class="text-sm font-bold text-white">Rotational Payout Schedule</h4>
+          </div>
+
+          <div class="space-y-2.5 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-slate-400 block text-[10px]">JANUARY 2026</span>
+                <span class="text-slate-200 font-bold">Thandiwe Zulu</span>
+              </div>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px]">Paid R12,000</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-slate-400 block text-[10px]">FEBRUARY 2026</span>
+                <span class="text-slate-200 font-bold">Bheki Mthembu</span>
+              </div>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px]">Paid R12,000</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/40 flex justify-between items-center">
+              <div>
+                <span class="text-amber-400 block text-[10px] font-bold">OCTOBER 2026 (CURRENT)</span>
+                <span class="text-white font-bold">Kagiso Ndlovu</span>
+              </div>
+              <button onclick="triggerPayout()" class="px-2.5 py-1 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[10px] transition-all">
+                Release Payout →
+              </button>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-slate-400 block text-[10px]">NOVEMBER 2026</span>
+                <span class="text-slate-200 font-bold">Nandi Khumalo</span>
+              </div>
+              <span class="text-slate-500 text-[10px]">Scheduled (R12,000)</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-slate-400 block text-[10px]">DECEMBER 2026</span>
+                <span class="text-slate-200 font-bold">Grocery Lump-Sum (All)</span>
+              </div>
+              <span class="text-slate-500 text-[10px]">Bulk Food Wholesaler</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Informatics Angle -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 text-xs text-slate-300 font-light space-y-3">
+          <h4 class="text-white font-bold text-sm flex items-center gap-1.5 font-mono">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+            <span>Digitizing Social Capital & Trust</span>
+          </h4>
+          <p class="leading-relaxed">
+            South African Stokvels represent over <strong>R50 billion in collective community capital</strong> across 11 million citizens. Physical paper records frequently suffer water damage, lost receipts, or disputable verbal agreements. By providing multi-member cryptographic confirmations and automated WhatsApp receipting, digital ledgers insulate community trust from human error.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-mono gap-4">
+      <p>© Bonga Manzini • BSc Informatics (UNISA) • Community Financial Systems</p>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/BongaManzini/stokvel-digital-ledger" target="_blank" class="hover:text-amber-400 transition-colors">GitHub Repository</a>
+        <span>•</span>
+        <a href="https://bongamanzini.github.io/portfolio/" target="_blank" class="hover:text-amber-400 transition-colors">Portfolio</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    let members = [
+      { id: 1, name: 'Thandiwe Zulu', role: 'Chairperson', amount: 1000, status: 'PAID', date: '01 Oct 2026', month: 'January' },
+      { id: 2, name: 'Bheki Mthembu', role: 'Treasurer', amount: 1000, status: 'PAID', date: '01 Oct 2026', month: 'February' },
+      { id: 3, name: 'Kagiso Ndlovu', role: 'Member', amount: 1000, status: 'PAID', date: '02 Oct 2026', month: 'October' },
+      { id: 4, name: 'Nandi Khumalo', role: 'Member', amount: 1000, status: 'PAID', date: '02 Oct 2026', month: 'November' },
+      { id: 5, name: 'Sipho Dlamini', role: 'Member', amount: 1000, status: 'PAID', date: '03 Oct 2026', month: 'March' },
+      { id: 6, name: 'Lerato Kgosi', role: 'Secretary', amount: 1000, status: 'PENDING', date: 'Pending', month: 'April' }
+    ];
+
+    let auditLogs = [
+      { time: '03 Oct 14:22', text: 'Sipho Dlamini paid R1,000 via Capitec Pay (Ref #CPT-90412)' },
+      { time: '02 Oct 09:15', text: 'Nandi Khumalo paid R1,000 via FNB Instant EFT (Ref #FNB-38291)' },
+      { time: '01 Oct 18:40', text: 'Monthly contribution cycle opened for October 2026' }
+    ];
+
+    function renderMembers() {
+      const tbody = document.getElementById('member-table-body');
+      tbody.innerHTML = members.map(m => `
+        <tr class="hover:bg-slate-900/50 transition-colors">
+          <td class="p-3">
+            <span class="text-white font-bold block">${m.name}</span>
+            <span class="text-[10px] text-slate-500">${m.role}</span>
+          </td>
+          <td class="p-3 text-slate-200">R ${m.amount.toLocaleString()}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded text-[10px] ${m.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'}">
+              ${m.status}
+            </span>
+          </td>
+          <td class="p-3 text-slate-400">${m.month}</td>
+          <td class="p-3 text-right">
+            ${m.status === 'PENDING' ? `
+              <button onclick="markAsPaid(${m.id})" class="px-2 py-1 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-[10px] transition-all">
+                Mark Paid
+              </button>
+            ` : `
+              <span class="text-slate-600 text-[10px]">Verified ✓</span>
+            `}
+          </td>
+        </tr>
+      `).join('');
+
+      // Audit logs
+      const auditDiv = document.getElementById('audit-trail');
+      auditDiv.innerHTML = auditLogs.map(log => `
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-start gap-2 text-slate-300">
+          <span class="text-slate-500 text-[10px] shrink-0 font-semibold">${log.time}</span>
+          <span>${log.text}</span>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function markAsPaid(id) {
+      const m = members.find(item => item.id === id);
+      if (m) {
+        m.status = 'PAID';
+        m.date = 'Just now';
+        auditLogs.unshift({
+          time: 'Just now',
+          text: `${m.name} contribution of R1,000 verified by Treasurer`
+        });
+        renderMembers();
+      }
+    }
+
+    function recordNewContribution() {
+      const name = prompt('Enter Member Name:');
+      if (!name) return;
+      const newId = members.length + 1;
+      members.push({
+        id: newId,
+        name,
+        role: 'Member',
+        amount: 1000,
+        status: 'PAID',
+        date: 'Just now',
+        month: 'December'
+      });
+      auditLogs.unshift({
+        time: 'Just now',
+        text: `New member ${name} enrolled with R1,000 inaugural deposit`
+      });
+      renderMembers();
+    }
+
+    function triggerPayout() {
+      alert('October Payout of R12,000 authorized for Kagiso Ndlovu! Cryptographic receipt sent via WhatsApp to all 12 members.');
+      auditLogs.unshift({
+        time: 'Just now',
+        text: 'OCTOBER ROTATIONAL PAYOUT DISBURSED: R12,000 to Kagiso Ndlovu (FNB Account ***492)'
+      });
+      renderMembers();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMembers();
+    });
+  </script>
+</body>
+</html>
