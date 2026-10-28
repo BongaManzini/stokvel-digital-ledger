@@ -1,4 +1,4 @@
-# 💰 Stokvel Digital Trust Ledger
+# Stokvel Digital Trust Ledger
 
 > **Live Application**: [https://bongamanzini.github.io/stokvel-digital-ledger/](https://bongamanzini.github.io/stokvel-digital-ledger/)
 
@@ -6,7 +6,7 @@ An interactive community savings club (Stokvel) accounting ledger and financial 
 
 ---
 
-## 🎯 The Informatics & Financial Inclusion Angle
+## The Informatics & Financial Inclusion Angle
 
 - **The Problem**: Traditional Stokvels manage millions of Rands in member contributions using handwritten paper notebooks. Records are vulnerable to physical loss, damage, theft, and disputed verbal agreements between members and treasurers.
 - **The Informatics Solution**: A transparent digital trust platform offering:
@@ -17,7 +17,7 @@ An interactive community savings club (Stokvel) accounting ledger and financial 
 
 ---
 
-## 🛠️ Features
+## ️ Features
 
 - **Live Contribution Dashboard**: Real-time tracking of monthly member payments and pending flags.
 - **Automated Rotational Payout Engine**: Coordinates monthly capital distributions across club members.
@@ -26,7 +26,7 @@ An interactive community savings club (Stokvel) accounting ledger and financial 
 
 ---
 
-## 💻 Tech Stack
+## Tech Stack
 
 - **Frontend**: HTML5, Vanilla JavaScript (ESNext)
 - **Styling**: Tailwind CSS
@@ -35,8 +35,8 @@ An interactive community savings club (Stokvel) accounting ledger and financial 
 
 ---
 
-## 👨‍💻 Author
+## ‍ Author
 
-**Bonga Manzini**  
-BSc Informatics – University of South Africa (UNISA)  
+**Bonga Manzini** 
+BSc Informatics – University of South Africa (UNISA) 
 Portfolio: [https://bongamanzini.github.io/portfolio/](https://bongamanzini.github.io/portfolio/)
